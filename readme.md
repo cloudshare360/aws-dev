@@ -9,7 +9,9 @@
 
 ## 🌐 📍 **LIVE WEBSITE - VIEW NOW!**
 
-### � **https://cloudshare360.github.io/aws-dev/**
+### 🚀 **https://cloudshare360.github.io/aws-dev/**
+
+### 🎯 **Route 53 Learning Hub: https://cloudshare360.github.io/aws-dev/AWS-Abhishek-Veeramalla/day-6-route53/**
 
 > 👆 **Click above to access the interactive learning platform with professional AWS diagrams and comprehensive Route 53 documentation**
 
