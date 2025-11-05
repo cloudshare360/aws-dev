@@ -2,53 +2,33 @@
 title: "AWS Route 53 Learning Hub"
 description: "Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams"
 author: "AWS Learning Team"
-email: "cloudshare360@github.com"
 
 # Build settings
 markdown: kramdown
 highlighter: rouge
-theme: minima
 
 # GitHub Pages settings
 github:
   repository_name: aws-dev
   owner_name: cloudshare360
 
-# Site settings
-baseurl: "/aws-dev"
-url: "https://cloudshare360.github.io"
-
-# Navigation
-navigation:
-  - title: "Home"
-    url: "/"
-  - title: "Basic Diagrams"
-    url: "/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/"
-  - title: "Enterprise Diagrams"
-    url: "/AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/"
-  - title: "Original Notes"
-    url: "/AWS-Abhishek-Veeramalla/day-6-route53/notebook-nlm/"
+# Site settings - Remove baseurl to fix 404 issues
+baseurl: ""
+url: "https://cloudshare360.github.io/aws-dev"
 
 # Plugins
 plugins:
   - jekyll-feed
   - jekyll-sitemap
-  - jekyll-seo-tag
-
-# Collections
-collections:
-  diagrams:
-    output: true
-    permalink: /:collection/:name/
 
 # Exclude files
 exclude:
   - Gemfile
   - Gemfile.lock
-  - README.md
   - LICENSE
   - .gitignore
   - .git
+  - .github
 
 # Include files
 include:
