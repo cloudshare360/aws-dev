@@ -7,8 +7,13 @@
 
 > **Enterprise-grade visual learning materials for AWS services with professional diagrams and comprehensive documentation**
 
-## 🌐 Live Website
-🔗 **https://cloudshare360.github.io/aws-dev/**
+## 🌐 📍 **LIVE WEBSITE - VIEW NOW!**
+
+### � **https://cloudshare360.github.io/aws-dev/**
+
+> 👆 **Click above to access the interactive learning platform with professional AWS diagrams and comprehensive Route 53 documentation**
+
+---
 
 ## 📚 Current Content
 
@@ -47,10 +52,17 @@ Comprehensive learning materials covering all aspects of Amazon Route 53 DNS ser
 
 ## 🚀 Quick Start
 
-### Online Access
-Visit the live website: **https://cloudshare360.github.io/aws-dev/**
+### 🌐 **Access Live Website**
+**🔗 https://cloudshare360.github.io/aws-dev/** 👈 **START HERE!**
 
-### Local Development
+*Professional, interactive learning platform with AWS-branded diagrams and comprehensive documentation*
+
+### 📂 **Direct Links**
+- 📚 [Basic Diagrams Guide](https://cloudshare360.github.io/aws-dev/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/)
+- 🏢 [Enterprise Diagrams Guide](https://cloudshare360.github.io/aws-dev/AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/)
+- 📝 [Original Learning Notes](https://cloudshare360.github.io/aws-dev/AWS-Abhishek-Veeramalla/day-6-route53/notebook-nlm/)
+
+### 💻 Local Development
 ```bash
 # Clone repository
 git clone https://github.com/cloudshare360/aws-dev.git
@@ -104,6 +116,17 @@ aws-dev/
 - **Repository**: [cloudshare360/aws-dev](https://github.com/cloudshare360/aws-dev)
 - **Issues**: [Report bugs or request features](https://github.com/cloudshare360/aws-dev/issues)
 - **Discussions**: [Community discussions](https://github.com/cloudshare360/aws-dev/discussions)
+
+---
+
+## 🎯 **Ready to Start Learning?**
+
+### 🚀 **Visit the Live Learning Platform:**
+# **👉 [https://cloudshare360.github.io/aws-dev/](https://cloudshare360.github.io/aws-dev/) 👈**
+
+*Interactive diagrams • Professional AWS content • Mobile-friendly • Free access*
+
+---
 
 ## 📄 License
 
