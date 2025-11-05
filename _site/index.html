@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Learning Hub - Route 53 Visual Guide</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #ff9900;
+        }
+        .aws-logo {
+            color: #ff9900;
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f9f9f9;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .card h3 {
+            color: #ff9900;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .icon {
+            font-size: 1.5em;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff9900;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #e6880a;
+        }
+        .btn.secondary {
+            background: #232f3e;
+        }
+        .btn.secondary:hover {
+            background: #1a252f;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .feature {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #232f3e;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        .stat {
+            background: #232f3e;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff9900;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="aws-logo">☁️ AWS Learning Hub</div>
+            <div class="subtitle">Complete Visual Guide to Amazon Route 53</div>
+            <div style="margin-top: 15px;">
+                <span style="background: #e8f4fd; padding: 5px 15px; border-radius: 15px; color: #232f3e;">
+                    🎯 Enterprise-Grade Documentation with Official AWS Icons
+                </span>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="stat-number">34</div>
+                <div>Files Created</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">7</div>
+                <div>Core Concepts</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">1,733</div>
+                <div>Lines of Content</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">2</div>
+                <div>Diagram Versions</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3><span class="icon">📚</span> Basic Diagrams</h3>
+                <p>Simple, easy-to-understand diagrams with emojis and clear explanations. Perfect for beginners and quick reference.</p>
+                <div class="features">
+                    <div class="feature">🎯 Beginner-friendly</div>
+                    <div class="feature">😊 Emoji-based icons</div>
+                    <div class="feature">📖 Clear explanations</div>
+                    <div class="feature">⚡ Quick reference</div>
+                </div>
+                <a href="./AWS-Abhishek-Veeramalla/day-6-route53/diagrams/" class="btn">View Basic Version</a>
+            </div>
+
+            <div class="card">
+                <h3><span class="icon">🏢</span> Enterprise Diagrams</h3>
+                <p>Professional diagrams with official AWS icons, enterprise architecture patterns, and production-ready examples.</p>
+                <div class="features">
+                    <div class="feature">☁️ Official AWS icons</div>
+                    <div class="feature">🏗️ Enterprise architecture</div>
+                    <div class="feature">💰 Cost analysis</div>
+                    <div class="feature">🎓 Certification prep</div>
+                </div>
+                <a href="./AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/" class="btn">View Enterprise Version</a>
+            </div>
+        </div>
+
+        <div style="background: #f0f8ff; padding: 20px; border-radius: 8px; margin: 30px 0;">
+            <h2 style="color: #232f3e; text-align: center; margin-bottom: 20px;">📖 Learning Path</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+                <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9900;">
+                    <strong>1. Route 53 Overview</strong><br>
+                    DNS as a Service fundamentals
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9900;">
+                    <strong>2. Why DNS is Essential</strong><br>
+                    Problems that DNS solves
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9900;">
+                    <strong>3. AWS Architecture</strong><br>
+                    Integration with AWS infrastructure
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9900;">
+                    <strong>4. Core Services</strong><br>
+                    Registration, hosted zones, health checks
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9900;">
+                    <strong>5. DNS Records</strong><br>
+                    Types and AWS optimizations
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9900;">
+                    <strong>6. Health Checks</strong><br>
+                    Intelligent traffic routing
+                </div>
+                <div style="background: white; padding: 15px; border-radius: 5px; border-left: 4px solid #ff9900;">
+                    <strong>7. Complete Workflow</strong><br>
+                    End-to-end implementation
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <h2 style="color: #232f3e;">🚀 Quick Access</h2>
+            <a href="./AWS-Abhishek-Veeramalla/day-6-route53/diagrams/README.md" class="btn">📚 Basic Guide</a>
+            <a href="./AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/README.md" class="btn secondary">🏢 Enterprise Guide</a>
+            <a href="./AWS-Abhishek-Veeramalla/day-6-route53/notebook-nlm/readme.md" class="btn">📝 Original Notes</a>
+        </div>
+
+        <div style="background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px; padding: 20px; margin: 30px 0;">
+            <h3 style="color: #856404; margin-top: 0;">🎯 Perfect For</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                <div>📖 <strong>AWS Certification</strong><br>Solutions Architect exam prep</div>
+                <div>💼 <strong>Enterprise Training</strong><br>Team education materials</div>
+                <div>🏗️ <strong>Architecture Reviews</strong><br>Technical documentation</div>
+                <div>🎓 <strong>Learning Path</strong><br>Step-by-step progression</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>📅 Created: November 2025 | 🔧 Built with Mermaid.js | ☁️ Hosted on GitHub Pages</p>
+            <p><strong>Repository:</strong> <a href="https://github.com/cloudshare360/aws-dev">cloudshare360/aws-dev</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate stats on page load
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = parseInt(stat.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current);
+                }, 30);
+            });
+        });
+    </script>
+</body>
+</html>

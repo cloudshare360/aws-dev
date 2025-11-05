@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Route 53 Core Services | AWS Route 53 Learning Hub</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Route 53 Core Services" />
+<meta name="author" content="AWS Learning Team" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<meta property="og:description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<link rel="canonical" href="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/04-route53-core-services.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/04-route53-core-services.html" />
+<meta property="og:site_name" content="AWS Route 53 Learning Hub" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Route 53 Core Services" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"AWS Learning Team"},"description":"Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams","headline":"Route 53 Core Services","url":"http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/04-route53-core-services.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=7bba75944fabbb2ac279aac519c9c1b82df1cee8">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://0.0.0.0:4000/">AWS Route 53 Learning Hub</a></h1>
+      
+
+      <h1 id="route-53-core-services">Route 53 Core Services</h1>
+
+<h2 id="three-essential-components">Three Essential Components</h2>
+
+<pre><code class="language-mermaid">flowchart TD
+    subgraph R53 ["☁️ AWS Route 53 Service"]
+        subgraph DomainReg ["1️⃣ Domain Registration"]
+            A["🛒 Buy New Domains&lt;br/&gt;example.com&lt;br/&gt;mycompany.org"]
+            B["🔗 Import External Domains&lt;br/&gt;From GoDaddy, Namecheap, etc."]
+        end
+        
+        subgraph HostedZones ["2️⃣ Hosted Zones"]
+            C["📝 DNS Records Storage&lt;br/&gt;A, CNAME, MX, etc."]
+            D["🔍 Domain → IP Mapping&lt;br/&gt;example.com → 3.6.10.171"]
+            E["⚙️ Record Management&lt;br/&gt;Create, Update, Delete"]
+        end
+        
+        subgraph HealthChecks ["3️⃣ Health Checks"]
+            F["💓 Monitor Server Health&lt;br/&gt;Every 1-5 minutes"]
+            G["🎯 Smart Routing&lt;br/&gt;Only to healthy servers"]
+            H["⚠️ Failover Support&lt;br/&gt;Automatic detection"]
+        end
+    end
+    
+    subgraph External ["🌍 External Services"]
+        GoDaddy["🏪 GoDaddy&lt;br/&gt;Domain Registrar"]
+        Hostinger["🏪 Hostinger&lt;br/&gt;DNS Hosting"]
+    end
+    
+    subgraph Servers ["🖥️ Your Infrastructure"]
+        Server1["🟢 Healthy Server"]
+        Server2["🔴 Unhealthy Server"]
+        Server3["🟢 Healthy Server"]
+    end
+    
+    GoDaddy -.-&gt;|"Alternative"| B
+    Hostinger -.-&gt;|"Replaced by"| C
+    
+    F --&gt; Server1
+    F --&gt; Server2
+    F --&gt; Server3
+    G --&gt; Server1
+    G --&gt; Server3
+    G -.-&gt;|"Excludes"| Server2
+    
+    style DomainReg fill:#e3f2fd
+    style HostedZones fill:#f3e5f5
+    style HealthChecks fill:#e8f5e8
+    style Server1 fill:#4caf50,color:white
+    style Server2 fill:#f44336,color:white
+    style Server3 fill:#4caf50,color:white
+</code></pre>
+
+<p><strong>Key Benefits</strong>:</p>
+<ul>
+  <li><strong>All-in-One Solution</strong>: Replaces multiple external services</li>
+  <li><strong>Intelligent Routing</strong>: Only sends traffic to healthy servers</li>
+  <li><strong>Seamless Integration</strong>: Works perfectly with other AWS services</li>
+  <li><strong>Cost Effective</strong>: No need for separate registrar and DNS hosting</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

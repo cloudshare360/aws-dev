@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Route 53 Health Checks &amp; Failover | AWS Route 53 Learning Hub</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Route 53 Health Checks &amp; Failover" />
+<meta name="author" content="AWS Learning Team" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<meta property="og:description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<link rel="canonical" href="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/06-health-checks-failover.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/06-health-checks-failover.html" />
+<meta property="og:site_name" content="AWS Route 53 Learning Hub" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Route 53 Health Checks &amp; Failover" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"AWS Learning Team"},"description":"Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams","headline":"Route 53 Health Checks &amp; Failover","url":"http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/06-health-checks-failover.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=7bba75944fabbb2ac279aac519c9c1b82df1cee8">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://0.0.0.0:4000/">AWS Route 53 Learning Hub</a></h1>
+      
+
+      <h1 id="route-53-health-checks--failover">Route 53 Health Checks &amp; Failover</h1>
+
+<h2 id="intelligent-traffic-routing">Intelligent Traffic Routing</h2>
+
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Users ["👥 Users"]
+        U1["👤 User 1"]
+        U2["👤 User 2"] 
+        U3["👤 User 3"]
+    end
+    
+    subgraph R53Health ["☁️ Route 53 Health Monitoring"]
+        Monitor["💓 Health Check Service&lt;br/&gt;Checks every 1-5 minutes"]
+        Decision{"🤔 Server Status&lt;br/&gt;Assessment"}
+    end
+    
+    subgraph Servers ["🖥️ Web Servers"]
+        S1["🟢 Server 1&lt;br/&gt;US-East&lt;br/&gt;Status: Healthy&lt;br/&gt;Response: 200 OK"]
+        S2["🔴 Server 2&lt;br/&gt;US-West&lt;br/&gt;Status: Unhealthy&lt;br/&gt;Response: Timeout"]
+        S3["🟢 Server 3&lt;br/&gt;EU-West&lt;br/&gt;Status: Healthy&lt;br/&gt;Response: 200 OK"]
+    end
+    
+    subgraph Routing ["🎯 Smart Routing Logic"]
+        Route["📍 Route Traffic Only&lt;br/&gt;to Healthy Servers"]
+    end
+    
+    Users --&gt; R53Health
+    Monitor --&gt; S1
+    Monitor --&gt; S2  
+    Monitor --&gt; S3
+    
+    S1 --&gt;|"✅ Healthy"| Decision
+    S2 --&gt;|"❌ Unhealthy"| Decision
+    S3 --&gt;|"✅ Healthy"| Decision
+    
+    Decision --&gt; Route
+    
+    Route --&gt;|"✅ Allow Traffic"| S1
+    Route -.-&gt;|"❌ Block Traffic"| S2
+    Route --&gt;|"✅ Allow Traffic"| S3
+    
+    U1 --&gt; S1
+    U2 --&gt; S3
+    U3 --&gt; S1
+    
+    style S1 fill:#4caf50,color:white
+    style S2 fill:#f44336,color:white
+    style S3 fill:#4caf50,color:white
+    style Monitor fill:#ffeb3b
+    style Route fill:#2196f3,color:white
+</code></pre>
+
+<p><strong>Health Check Features</strong>:</p>
+<ul>
+  <li><strong>Automatic Monitoring</strong>: Checks server health every 1-5 minutes</li>
+  <li><strong>Multiple Protocols</strong>: HTTP, HTTPS, TCP health checks</li>
+  <li><strong>Global Coverage</strong>: Health checks from multiple AWS regions</li>
+  <li><strong>Intelligent Failover</strong>: Automatically routes traffic away from unhealthy servers</li>
+  <li><strong>Real-time Updates</strong>: DNS records updated based on health status</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

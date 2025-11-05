@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>DNS Records in Hosted Zones | AWS Route 53 Learning Hub</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="DNS Records in Hosted Zones" />
+<meta name="author" content="AWS Learning Team" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<meta property="og:description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<link rel="canonical" href="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/05-dns-records.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/05-dns-records.html" />
+<meta property="og:site_name" content="AWS Route 53 Learning Hub" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="DNS Records in Hosted Zones" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"AWS Learning Team"},"description":"Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams","headline":"DNS Records in Hosted Zones","url":"http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams/05-dns-records.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=7bba75944fabbb2ac279aac519c9c1b82df1cee8">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://0.0.0.0:4000/">AWS Route 53 Learning Hub</a></h1>
+      
+
+      <h1 id="dns-records-in-hosted-zones">DNS Records in Hosted Zones</h1>
+
+<h2 id="common-dns-record-types">Common DNS Record Types</h2>
+
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Domain ["🌐 Domain: example.com"]
+        subgraph Records ["📝 DNS Records in Hosted Zone"]
+            A["📍 A Record&lt;br/&gt;example.com → 192.168.1.1&lt;br/&gt;(Domain to IPv4)"]
+            AAAA["📍 AAAA Record&lt;br/&gt;example.com → 2001:db8::1&lt;br/&gt;(Domain to IPv6)"]
+            CNAME["🔗 CNAME Record&lt;br/&gt;www.example.com → example.com&lt;br/&gt;(Alias to another domain)"]
+            MX["📧 MX Record&lt;br/&gt;example.com → mail.example.com&lt;br/&gt;(Mail server routing)"]
+            TXT["📄 TXT Record&lt;br/&gt;Domain verification&lt;br/&gt;SPF, DKIM records"]
+            NS["🌐 NS Record&lt;br/&gt;example.com → ns1.route53.com&lt;br/&gt;(Name server delegation)"]
+        end
+    end
+    
+    subgraph Resolution ["🔍 DNS Resolution Process"]
+        Query["❓ DNS Query&lt;br/&gt;What is example.com?"]
+        Lookup["🔎 Route 53 Lookup&lt;br/&gt;Check hosted zone"]
+        Response["✅ DNS Response&lt;br/&gt;192.168.1.1"]
+    end
+    
+    Query --&gt; Lookup
+    Lookup --&gt; Records
+    Records --&gt; Response
+    
+    style A fill:#e8f5e8
+    style AAAA fill:#e3f2fd
+    style CNAME fill:#fff3e0
+    style MX fill:#fce4ec
+    style TXT fill:#f3e5f5
+    style NS fill:#e0f2f1
+    
+    classDef primary fill:#4caf50,color:white
+    classDef secondary fill:#2196f3,color:white
+    class A primary
+    class Query,Lookup,Response secondary
+</code></pre>
+
+<p><strong>Record Types Explained</strong>:</p>
+<ul>
+  <li><strong>A Record</strong>: Maps domain to IPv4 address (most common)</li>
+  <li><strong>AAAA Record</strong>: Maps domain to IPv6 address</li>
+  <li><strong>CNAME</strong>: Creates alias (www.example.com → example.com)</li>
+  <li><strong>MX Record</strong>: Defines mail server for email routing</li>
+  <li><strong>TXT Record</strong>: Stores text data (verification, SPF records)</li>
+  <li><strong>NS Record</strong>: Delegates subdomain to other name servers</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

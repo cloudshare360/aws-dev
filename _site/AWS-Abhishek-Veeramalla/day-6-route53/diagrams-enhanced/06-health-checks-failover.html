@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Route 53 Health Checks &amp; Failover - Advanced AWS Implementation | AWS Route 53 Learning Hub</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Route 53 Health Checks &amp; Failover - Advanced AWS Implementation" />
+<meta name="author" content="AWS Learning Team" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<meta property="og:description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<link rel="canonical" href="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/06-health-checks-failover.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/06-health-checks-failover.html" />
+<meta property="og:site_name" content="AWS Route 53 Learning Hub" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Route 53 Health Checks &amp; Failover - Advanced AWS Implementation" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"AWS Learning Team"},"description":"Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams","headline":"Route 53 Health Checks &amp; Failover - Advanced AWS Implementation","url":"http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/06-health-checks-failover.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=7bba75944fabbb2ac279aac519c9c1b82df1cee8">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://0.0.0.0:4000/">AWS Route 53 Learning Hub</a></h1>
+      
+
+      <h1 id="route-53-health-checks--failover---advanced-aws-implementation">Route 53 Health Checks &amp; Failover - Advanced AWS Implementation</h1>
+
+<h2 id="aws-health-check-architecture">AWS Health Check Architecture</h2>
+
+<pre><code class="language-mermaid">architecture-beta
+    group health_system(logos:aws-cloudwatch)[Route 53 Health Checks]
+    group monitoring_locations(cloud)[Global Health Check Locations]
+    group aws_resources(logos:aws)[AWS Resources]
+    group notification_system(logos:aws-simple-notification-service)[Notification System]
+
+    service health_checker(logos:aws-route-53)[Health Check Service] in health_system
+    service dns_failover(logos:aws-route-53)[DNS Failover Logic] in health_system
+    service location_1(cloud)[N. Virginia] in monitoring_locations
+    service location_2(cloud)[Oregon] in monitoring_locations
+    service location_3(cloud)[Ireland] in monitoring_locations
+    
+    service primary_alb(logos:aws-elastic-load-balancing)[Primary ALB] in aws_resources
+    service secondary_alb(logos:aws-elastic-load-balancing)[Secondary ALB] in aws_resources
+    service ec2_primary(logos:aws-ec2)[Primary EC2] in aws_resources
+    service ec2_secondary(logos:aws-ec2)[Secondary EC2] in aws_resources
+    
+    service sns_alerts(logos:aws-simple-notification-service)[SNS Alerts] in notification_system
+    service cloudwatch(logos:aws-cloudwatch)[CloudWatch] in notification_system
+
+    location_1:R --&gt; L:health_checker
+    location_2:R --&gt; L:health_checker
+    location_3:R --&gt; L:health_checker
+    health_checker:R --&gt; L:primary_alb
+    health_checker:R --&gt; L:secondary_alb
+    dns_failover:R --&gt; L:ec2_secondary
+    health_checker:R --&gt; L:sns_alerts
+</code></pre>
+
+<h2 id="intelligent-health-monitoring--failover">Intelligent Health Monitoring &amp; Failover</h2>
+
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Global ["🌍 Global Health Check Network"]
+        subgraph Locations ["📍 AWS Health Check Locations (15+ Worldwide)"]
+            Virginia["🇺🇸 N. Virginia&lt;br/&gt;us-east-1"]
+            Oregon["🇺🇸 Oregon&lt;br/&gt;us-west-2"]
+            Ireland["🇮🇪 Ireland&lt;br/&gt;eu-west-1"]
+            Tokyo["🇯🇵 Tokyo&lt;br/&gt;ap-northeast-1"]
+            Sydney["🇦🇺 Sydney&lt;br/&gt;ap-southeast-2"]
+            More["➕ 10+ More&lt;br/&gt;Edge Locations"]
+        end
+    end
+    
+    subgraph HealthCheckTypes ["💓 Health Check Types"]
+        HTTP["🌐 HTTP/HTTPS Endpoint&lt;br/&gt;• URL: https://api.myapp.com/health&lt;br/&gt;• Expected: 200 OK&lt;br/&gt;• Interval: 30 seconds&lt;br/&gt;• Failure threshold: 3 attempts"]
+        
+        TCP["🔌 TCP Port Check&lt;br/&gt;• Host: myapp.com&lt;br/&gt;• Port: 443 (HTTPS)&lt;br/&gt;• Timeout: 10 seconds&lt;br/&gt;• Success: Connection established"]
+        
+        StringMatch["🔍 String Matching&lt;br/&gt;• Search for: 'Status: OK'&lt;br/&gt;• In response body&lt;br/&gt;• Case sensitive option&lt;br/&gt;• Regex support available"]
+        
+        Calculated["📊 Calculated Health Check&lt;br/&gt;• Combine multiple checks&lt;br/&gt;• Boolean logic (AND/OR)&lt;br/&gt;• Complex failover scenarios&lt;br/&gt;• Weighted decisions"]
+        
+        CloudWatch["📈 CloudWatch Alarm&lt;br/&gt;• Monitor AWS metrics&lt;br/&gt;• CPU, memory, disk usage&lt;br/&gt;• Custom application metrics&lt;br/&gt;• Threshold-based alerts"]
+    end
+    
+    subgraph MultiRegionSetup ["🌐 Multi-Region Failover Setup"]
+        subgraph Primary ["🟢 Primary Region (us-east-1)"]
+            ALB1["⚖️ Application Load Balancer&lt;br/&gt;Status: ✅ Healthy&lt;br/&gt;Health Score: 100%&lt;br/&gt;Response Time: 50ms"]
+            App1["💻 EC2 Auto Scaling Group&lt;br/&gt;Instances: 3/3 healthy&lt;br/&gt;CPU: 45%&lt;br/&gt;Memory: 60%"]
+            RDS1["🗄️ RDS Primary&lt;br/&gt;Status: ✅ Available&lt;br/&gt;Connections: 85/100&lt;br/&gt;Read Replicas: 2"]
+        end
+        
+        subgraph Secondary ["🟡 Secondary Region (us-west-2)"]
+            ALB2["⚖️ Application Load Balancer&lt;br/&gt;Status: ✅ Standby&lt;br/&gt;Health Score: 100%&lt;br/&gt;Response Time: 75ms"]
+            App2["💻 EC2 Auto Scaling Group&lt;br/&gt;Instances: 2/2 healthy&lt;br/&gt;CPU: 20%&lt;br/&gt;Memory: 30%"]
+            RDS2["🗄️ RDS Read Replica&lt;br/&gt;Status: ✅ Available&lt;br/&gt;Lag: &lt; 1 second&lt;br/&gt;Promote ready: Yes"]
+        end
+    end
+    
+    subgraph FailoverLogic ["🎯 Route 53 Failover Logic"]
+        Decision{"🤔 Health Assessment&lt;br/&gt;Primary Region Status?"}
+        DNSUpdate["🔄 DNS Record Update&lt;br/&gt;TTL: 60 seconds&lt;br/&gt;Propagation: &lt; 1 minute"]
+        UserTraffic["👥 User Traffic Routing&lt;br/&gt;Automatic redirection"]
+    end
+    
+    subgraph Monitoring ["📊 Monitoring &amp; Alerts"]
+        SNS["📧 SNS Notifications&lt;br/&gt;• Email alerts&lt;br/&gt;• SMS notifications&lt;br/&gt;• Slack integration&lt;br/&gt;• PagerDuty integration"]
+        
+        CW["📈 CloudWatch Dashboard&lt;br/&gt;• Health check metrics&lt;br/&gt;• DNS query patterns&lt;br/&gt;• Failover events&lt;br/&gt;• Performance metrics"]
+        
+        Logs["📝 Route 53 Query Logs&lt;br/&gt;• DNS query details&lt;br/&gt;• Response codes&lt;br/&gt;• Query sources&lt;br/&gt;• Performance analysis"]
+    end
+    
+    %% Health Check Flow
+    Virginia --&gt; HTTP
+    Oregon --&gt; TCP
+    Ireland --&gt; StringMatch
+    Tokyo --&gt; Calculated
+    Sydney --&gt; CloudWatch
+    
+    %% Resource Monitoring
+    HTTP --&gt; ALB1
+    TCP --&gt; ALB1
+    StringMatch --&gt; App1
+    CloudWatch --&gt; RDS1
+    
+    %% Failover Decision Process
+    ALB1 --&gt;|"Health Status"| Decision
+    App1 --&gt;|"Health Status"| Decision
+    RDS1 --&gt;|"Health Status"| Decision
+    
+    Decision --&gt;|"✅ Healthy"| ALB1
+    Decision --&gt;|"❌ Unhealthy"| DNSUpdate
+    DNSUpdate --&gt; ALB2
+    DNSUpdate --&gt; UserTraffic
+    
+    %% Monitoring Integration
+    Decision --&gt; SNS
+    DNSUpdate --&gt; CW
+    ALB1 --&gt; Logs
+    ALB2 --&gt; Logs
+    
+    style Primary fill:#e8f5e8
+    style Secondary fill:#fff3e0
+    style HealthCheckTypes fill:#e3f2fd
+    style FailoverLogic fill:#f3e5f5
+    style Monitoring fill:#fce4ec
+    
+    classDef healthy fill:#4caf50,color:white
+    classDef standby fill:#ff9800,color:white
+    classDef monitoring fill:#2196f3,color:white
+    classDef critical fill:#f44336,color:white
+    
+    class ALB1,App1,RDS1 healthy
+    class ALB2,App2,RDS2 standby
+    class HTTP,TCP,StringMatch,CW monitoring
+</code></pre>
+
+<h2 id="advanced-health-check-scenarios">Advanced Health Check Scenarios</h2>
+
+<pre><code class="language-mermaid">flowchart LR
+    subgraph Scenarios ["🎭 Real-World Failover Scenarios"]
+        subgraph Scenario1 ["Scenario 1: Database Failure"]
+            S1_Event["💥 Primary RDS Failure&lt;br/&gt;Connection timeout"]
+            S1_Detection["⚠️ Health Check Detects&lt;br/&gt;HTTP 500 responses"]
+            S1_Action["🔄 Route to Secondary&lt;br/&gt;Promote read replica"]
+            S1_Recovery["✅ Automatic Recovery&lt;br/&gt;DNS points back when fixed"]
+            
+            S1_Event --&gt; S1_Detection --&gt; S1_Action --&gt; S1_Recovery
+        end
+        
+        subgraph Scenario2 ["Scenario 2: Region Outage"]
+            S2_Event["🌪️ Entire Region Down&lt;br/&gt;Network partitioning"]
+            S2_Detection["📍 Multiple Health Checks Fail&lt;br/&gt;Global monitoring alerts"]
+            S2_Action["🌐 Traffic to Backup Region&lt;br/&gt;Full disaster recovery"]
+            S2_Recovery["🔙 Gradual Traffic Return&lt;br/&gt;Weighted routing back"]
+            
+            S2_Event --&gt; S2_Detection --&gt; S2_Action --&gt; S2_Recovery
+        end
+        
+        subgraph Scenario3 ["Scenario 3: Performance Degradation"]
+            S3_Event["🐌 High Response Times&lt;br/&gt;Performance below SLA"]
+            S3_Detection["📊 CloudWatch Alarms&lt;br/&gt;Latency thresholds exceeded"]
+            S3_Action["⚖️ Traffic Distribution&lt;br/&gt;Weighted routing adjustment"]
+            S3_Recovery["📈 Performance Monitoring&lt;br/&gt;Gradual traffic restoration"]
+            
+            S3_Event --&gt; S3_Detection --&gt; S3_Action --&gt; S3_Recovery
+        end
+    end
+</code></pre>
+
+<p><strong>Route 53 Health Check Configuration Examples</strong>:</p>
+
+<h3 id="-http-health-check">🌐 HTTP Health Check</h3>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HTTP"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ResourcePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/health"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"FullyQualifiedDomainName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"api.myapp.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Port"</span><span class="p">:</span><span class="w"> </span><span class="mi">80</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"RequestInterval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"FailureThreshold"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"SearchString"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Status: OK"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="-advanced-monitoring-features">🔍 Advanced Monitoring Features</h3>
+<ul>
+  <li><strong>Request Interval</strong>: 10 or 30 seconds (fast or standard)</li>
+  <li><strong>Failure Threshold</strong>: 1-10 consecutive failures before marking unhealthy</li>
+  <li><strong>Health Check Locations</strong>: Choose specific regions or use all available</li>
+  <li><strong>String Matching</strong>: Search for specific text in HTTP responses</li>
+  <li><strong>Latency Measurements</strong>: Track response times from different locations</li>
+</ul>
+
+<h3 id="-cost-optimization">💰 Cost Optimization</h3>
+<ul>
+  <li><strong>Basic Health Checks</strong>: $0.50/month per health check</li>
+  <li><strong>Fast Health Checks</strong>: $1.00/month per health check (10-second intervals)</li>
+  <li><strong>Calculated Health Checks</strong>: $1.00/month (combines multiple checks)</li>
+  <li><strong>Health Check Locations</strong>: Free to use all available locations</li>
+</ul>
+
+<h3 id="-best-practices">🎯 Best Practices</h3>
+<ol>
+  <li><strong>Multiple Checks</strong>: Use different health check types for comprehensive monitoring</li>
+  <li><strong>Regional Distribution</strong>: Ensure health checks from multiple geographic locations</li>
+  <li><strong>Appropriate TTL</strong>: Set DNS TTL to balance performance vs. failover speed</li>
+  <li><strong>Gradual Failback</strong>: Use weighted routing for gradual traffic restoration</li>
+  <li><strong>Monitoring Integration</strong>: Connect to CloudWatch and SNS for complete observability</li>
+</ol>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>

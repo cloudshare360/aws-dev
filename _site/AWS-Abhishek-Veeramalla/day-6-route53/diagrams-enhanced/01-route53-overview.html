@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>AWS Route 53 Overview - Enhanced with AWS Icons | AWS Route 53 Learning Hub</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="AWS Route 53 Overview - Enhanced with AWS Icons" />
+<meta name="author" content="AWS Learning Team" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<meta property="og:description" content="Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams" />
+<link rel="canonical" href="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/01-route53-overview.html" />
+<meta property="og:url" content="http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/01-route53-overview.html" />
+<meta property="og:site_name" content="AWS Route 53 Learning Hub" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="AWS Route 53 Overview - Enhanced with AWS Icons" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"AWS Learning Team"},"description":"Complete Visual Guide to Amazon Route 53 with Enterprise Diagrams","headline":"AWS Route 53 Overview - Enhanced with AWS Icons","url":"http://0.0.0.0:4000/AWS-Abhishek-Veeramalla/day-6-route53/diagrams-enhanced/01-route53-overview.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <link rel="stylesheet" href="/assets/css/style.css?v=7bba75944fabbb2ac279aac519c9c1b82df1cee8">
+    <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+
+<!-- Setup Google Analytics -->
+
+
+
+<!-- You can set your favicon here -->
+<!-- link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" -->
+
+<!-- end custom head snippets -->
+
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="http://0.0.0.0:4000/">AWS Route 53 Learning Hub</a></h1>
+      
+
+      <h1 id="aws-route-53-overview---enhanced-with-aws-icons">AWS Route 53 Overview - Enhanced with AWS Icons</h1>
+
+<h2 id="dns-as-a-service-architecture">DNS as a Service Architecture</h2>
+
+<pre><code class="language-mermaid">architecture-beta
+    group internet(cloud)[Internet]
+    group aws_cloud(logos:aws)[AWS Cloud]
+    group route53_service(logos:aws-route-53)[Route 53 Service]
+
+    service user(logos:aws-lambda)[User] in internet
+    service dns_resolver(logos:aws-route-53)[DNS Resolver] in route53_service
+    service hosted_zone(database)[Hosted Zone] in route53_service
+    service load_balancer(logos:aws-elastic-load-balancing)[Load Balancer] in aws_cloud
+    service web_server(logos:aws-ec2)[Web Server] in aws_cloud
+
+    user:R --&gt; L:dns_resolver
+    dns_resolver:R --&gt; L:hosted_zone
+    hosted_zone:R --&gt; L:load_balancer
+    load_balancer:R --&gt; L:web_server
+</code></pre>
+
+<h2 id="traditional-flowchart-view">Traditional Flowchart View</h2>
+
+<pre><code class="language-mermaid">flowchart TD
+    subgraph Internet ["🌍 Internet"]
+        User["👤 User&lt;br/&gt;Requests: amazon.com"]
+    end
+    
+    subgraph AWS ["☁️ AWS Cloud"]
+        subgraph Route53 ["🔀 Route 53 Service"]
+            DNS["📍 DNS Resolver&lt;br/&gt;Domain → IP Translation"]
+            Records["📚 DNS Records&lt;br/&gt;Hosted Zone Storage"]
+        end
+        LB["⚖️ Application Load Balancer&lt;br/&gt;IP: 3.6.10.171"]
+        EC2["💻 EC2 Instance&lt;br/&gt;Web Application"]
+    end
+    
+    User --&gt;|"1. Query: amazon.com"| DNS
+    DNS --&gt; Records
+    Records --&gt;|"2. Returns IP: 3.6.10.171"| DNS
+    DNS --&gt;|"3. DNS Response"| User
+    User --&gt;|"4. HTTP Request"| LB
+    LB --&gt;|"5. Forward Request"| EC2
+    EC2 --&gt;|"6. Response"| LB
+    LB --&gt;|"7. HTTP Response"| User
+    
+    style Route53 fill:#ff9900,color:white
+    style DNS fill:#ffeb3b,stroke:#f57f17,stroke-width:3px
+    style LB fill:#ff6f00,color:white
+    style EC2 fill:#2e7d32,color:white
+</code></pre>
+
+<p><strong>AWS Route 53 Key Points</strong>:</p>
+<ul>
+  <li><strong>Service Type</strong>: Managed DNS service (DNS as a Service)</li>
+  <li><strong>Primary Function</strong>: Resolves domain names to IP addresses</li>
+  <li><strong>AWS Integration</strong>: Native integration with all AWS services</li>
+  <li><strong>Global Infrastructure</strong>: Uses AWS edge locations worldwide</li>
+  <li><strong>Pricing Model</strong>: Pay-per-query with no upfront costs</li>
+</ul>
+
+<p><strong>How it Replaces Traditional DNS</strong>:</p>
+<ul>
+  <li>Instead of managing DNS servers, use Route 53’s managed service</li>
+  <li>Replaces external DNS providers like GoDaddy DNS hosting</li>
+  <li>Provides enterprise-grade reliability with 100% uptime SLA</li>
+</ul>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+  </body>
+</html>
